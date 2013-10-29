@@ -1,9 +1,4 @@
 require 'sinatra'
-begin
-require 'dotenv'
-Dotenv.load
-rescue LoadError
-end
 require 'sinatra/activerecord'
 require 'songkick/oauth2/provider'
 Songkick::OAuth2::Provider.realm = 'auth.makeheadspace.com - Dev'
