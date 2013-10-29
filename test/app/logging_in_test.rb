@@ -27,4 +27,16 @@ class TestLoggingIn < AppTest
 
     assert page.has_content? "Credentials are invalid"
   end
+
+
+  def test_logging_out
+
+    user_attributes = { email: "foo@example.com", password: "password"}
+    user = User.create(user_attributes)
+
+    login(user_attributes)
+    click_on "Log out"
+
+    assert page.has_no_content? "Logged in as: foo@example.com"
+  end
 end

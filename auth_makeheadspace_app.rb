@@ -9,30 +9,22 @@ Songkick::OAuth2::Provider.realm = 'auth.makeheadspace.com - Dev'
 
 
 require './models/user'
+require './helpers/sessions_helper'
 
 enable :sessions
 
 
 helpers do
+  include SessionsHelper
+
+  def navigation_partial
+    erb (logged_in? ? :_logged_in_nav : :_logged_out_nav)
+  end
+
   def create_user(user_attributes)
     User.create(user_attributes)
   end
 
-  def authenticate_user(user_attributes)
-    user = User.find_by(email: user_attributes[:email])
-
-    if !user
-      user = User.new
-    end
-
-    if user.password != user_attributes[:password]
-      user.errors.add(:credentials, "are invalid. We don't have any users with that email/password combination")
-      erb home_template, locals: { user: user }
-    else
-      login(user)
-      redirect '/'
-    end
-  end
 
   def login(user)
     session[:user_id] = user.id
@@ -57,11 +49,21 @@ end
 
 post '/users' do
   user = create_user(params[:user])
-  login(user) if user.persisted?
-
+  login(user) && redirect('/') && return if user.persisted?
   erb home_template, locals: { user: user }
 end
 
 post '/sessions' do
-  authenticate_user(params[:user])
+  user = authenticate_user(params[:user])
+  if user.errors.empty?
+    login(user)
+    redirect '/'
+  else
+    erb home_template, locals: { user: user }
+  end
+end
+
+get '/sessions/delete' do
+  session[:user_id] = nil
+  redirect '/'
 end
