@@ -38,4 +38,21 @@ class TestSessionsHelper < MiniTest::Test
     refute user.errors[:credentials].empty?
     refute user.errors.empty?
   end
+
+  def test_login
+    user = build_user(id: 1)
+
+    login(user)
+
+    assert logged_in?
+  end
+
+  def test_logout
+    user = build_user(id: 1)
+
+    login(user)
+    logout
+
+    refute logged_in?
+  end
 end

@@ -4,6 +4,18 @@ module SessionsHelper
     User.find_by(attributes)
   end
 
+  def login(user)
+    session[:user_id] = user.id
+  end
+
+  def logged_in?
+    !session[:user_id].nil?
+  end
+
+  def logout
+    session[:user_id] = nil
+  end
+
   def build_user(attributes={})
     User.new(attributes)
   end

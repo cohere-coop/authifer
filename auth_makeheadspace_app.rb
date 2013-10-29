@@ -25,15 +25,6 @@ helpers do
     User.create(user_attributes)
   end
 
-
-  def login(user)
-    session[:user_id] = user.id
-  end
-
-  def logged_in?
-    !session[:user_id].nil?
-  end
-
   def current_user
     @user ||= User.find(session[:user_id]) if logged_in?
   end
@@ -64,6 +55,6 @@ post '/sessions' do
 end
 
 get '/sessions/delete' do
-  session[:user_id] = nil
+  logout
   redirect '/'
 end
