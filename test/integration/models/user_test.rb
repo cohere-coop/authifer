@@ -23,7 +23,8 @@ class TestUser < DatabaseTest
 
     user2 = User.new(user_attributes)
 
-    refute user2.valid?
+    user2.valid?
+    refute user2.errors[:email].empty?
   end
 
   def test_user_must_have_password
@@ -31,9 +32,11 @@ class TestUser < DatabaseTest
       email: "test@example.com",
     }
 
-    user = User.create(user_attributes)
+    user = User.new(user_attributes)
 
+    user.valid?
     refute user.valid?
+    refute user.errors[:password].empty?
   end
 
   def test_user_password_and_confirmation_must_match
@@ -43,8 +46,9 @@ class TestUser < DatabaseTest
       password_confirmation: "ibar",
     }
 
-    user = User.create(user_attributes)
+    user = User.new(user_attributes)
 
     refute user.valid?
+    refute user.errors[:password_confirmation].empty?
   end
 end

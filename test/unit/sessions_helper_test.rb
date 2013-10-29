@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './test/helpers/fake_data_access_layer'
 require './helpers/sessions_helper'
-require 'ostruct'
 
 class TestSessionsHelper < MiniTest::Test
   include SessionsHelper

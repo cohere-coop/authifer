@@ -1,11 +1,11 @@
 <div id="registration_form">
   <form method="POST" action="/users">
-    <label>Email: <input type="email" name="user[email]" value="<%=user.email%>"></label>
-    <%= erb :_error, locals: { model: user, field: :email } %>
+    <label>Email: <input type="email" name="user[email]" value="<%=current_user.email%>"></label>
+    <%= erb :_error, locals: { model: current_user, field: :email } %>
     <label>Password: <input type="password" name="user[password]"></label>
-    <%= erb :_error, locals: { model: user, field: :password } %>
+    <%= erb :_error, locals: { model: current_user, field: :password } %>
     <label>Confirm Password: <input type="password" name="user[password_confirmation]"></label>
-    <%= erb :_error, locals: { model: user, field: :password_confirmation } %>
+    <%= erb :_error, locals: { model: current_user, field: :password_confirmation } %>
 
     <button>Register</button>
   </form>
@@ -13,11 +13,11 @@
 
 <div id="login_form">
   <form method="POST" action="/sessions">
-    <%= erb :_error, locals: { model: user, field: :credentials } %>
-    <label>Email: <input type="email" name="user[email]" value="<%=user.email%>"></label>
-    <%= erb :_error, locals: { model: user, field: :email } %>
+    <%= erb :_error, locals: { model: current_user, field: :credentials } %>
+    <label>Email: <input type="email" name="user[email]" value="<%=current_user.email%>"></label>
+    <%= erb :_error, locals: { model: current_user, field: :email } %>
     <label>Password: <input type="password" name="user[password]"></label>
-    <%= erb :_error, locals: { model: user, field: :password } %>
+    <%= erb :_error, locals: { model: current_user, field: :password } %>
     <button>Log in</button>
   </form>
 </div>

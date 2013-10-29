@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module FakeDataAccessLayer
   def create_user(attributes)
     cached_users[attributes[:email]] = build_user(attributes)

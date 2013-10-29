@@ -26,7 +26,21 @@ helpers do
   end
 
   def current_user
-    @user ||= User.find(session[:user_id]) if logged_in?
+    @current_user ||= logged_in? ? User.find(session[:user_id]) : User.new
+  end
+
+  def login_guest(user)
+    @current_user = user
+  end
+
+  def complete_login(user, registered)
+    if registered
+      login(user)
+      redirect('/')
+    else
+      login_guest(user)
+      erb home_template
+    end
   end
 
   def home_template
@@ -35,23 +49,17 @@ helpers do
 end
 
 get '/' do
-  erb home_template, locals: { user: User.new }
+  erb home_template
 end
 
 post '/users' do
   user = create_user(params[:user])
-  login(user) && redirect('/') && return if user.persisted?
-  erb home_template, locals: { user: user }
+  complete_login(user, user.persisted?)
 end
 
 post '/sessions' do
   user = authenticate_user(params[:user])
-  if user.errors.empty?
-    login(user)
-    redirect '/'
-  else
-    erb home_template, locals: { user: user }
-  end
+  complete_login(user, user.errors.empty?)
 end
 
 get '/sessions/delete' do
