@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ruby auth_makeheadspace_app.rb
