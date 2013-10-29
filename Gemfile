@@ -6,6 +6,7 @@ gem 'sinatra-activerecord'
 gem 'pg'
 gem 'rake'
 gem 'protected_attributes'
+gem 'bcrypt-ruby'
 
 group :development, :test do
   gem 'capybara'

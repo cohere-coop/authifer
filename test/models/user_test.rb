@@ -3,6 +3,16 @@ require './models/user'
 
 class TestUser < DatabaseTest
 
+  def test_user_password_is_encrypted
+    user_attributes = {
+      email: "test@example.com",
+      password: "password"
+    }
+    user = User.new(user_attributes)
+
+    refute user.password.to_s == "password"
+  end
+
   def test_user_email_must_be_unique
     user_attributes = {
       email: "test@example.com",
