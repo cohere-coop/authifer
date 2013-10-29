@@ -1,11 +1,18 @@
 require 'sinatra'
 require './initializers/dotenv'
+
 require 'sinatra/activerecord'
+set :database, ENV['DATABASE_URL']
+
 require 'songkick/oauth2/provider'
 Songkick::OAuth2::Provider.realm = 'auth.makeheadspace.com - Dev'
+
+
 require './models/user'
 
 enable :sessions
+
+
 helpers do
   def create_user(user_attributes)
     User.create(user_attributes)

@@ -2,8 +2,8 @@ require './test/test_helper'
 require 'active_record'
 require './initializers/dotenv'
 
+
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
-ActiveRecord::Base.logger = Logger.new('/dev/null')
 ActiveRecord::Migrator.up('db/migrate')
 
 require 'songkick/oauth2/provider'
