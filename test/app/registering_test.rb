@@ -8,6 +8,11 @@ class TestRegistering < MiniTest::Test
     User.destroy_all
   end
 
+  def teardown
+    Capybara.reset_sessions!
+    Capybara.use_default_driver
+  end
+
   def register(user_attributes)
     visit '/'
     within "#registration_form" do
@@ -24,6 +29,7 @@ class TestRegistering < MiniTest::Test
              password: "password",
              password_confirmation: "password")
     new_user = User.last
+    assert page.has_content? "Logged in as: test@example.com"
     assert new_user.email == "test@example.com"
     assert new_user.password == "password"
   end
