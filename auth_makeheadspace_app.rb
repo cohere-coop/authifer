@@ -5,9 +5,26 @@ require 'songkick/oauth2/provider'
 Songkick::OAuth2::Provider.realm = 'auth.makeheadspace.com - Dev'
 require './models/user'
 
+enable :sessions
 helpers do
   def create_user(user_attributes)
     User.create(user_attributes)
+  end
+
+  def authenticate_user(user_attributes)
+    user = User.find_by(email: user_attributes[:email])
+
+    if !user
+      user = User.new
+    end
+
+    if user.password != user_attributes[:password]
+      user.errors.add(:credentials, "are invalid. We don't have any users with that email/password combination")
+      erb home_template, locals: { user: user }
+    else
+      login(user)
+      redirect '/'
+    end
   end
 
   def login(user)
@@ -19,7 +36,7 @@ helpers do
   end
 
   def current_user
-    @user ||= User.find(session[:user_id])
+    @user ||= User.find(session[:user_id]) if logged_in?
   end
 
   def home_template
@@ -36,4 +53,8 @@ post '/users' do
   login(user) if user.persisted?
 
   erb home_template, locals: { user: user }
+end
+
+post '/sessions' do
+  authenticate_user(params[:user])
 end

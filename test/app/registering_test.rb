@@ -1,17 +1,6 @@
 require './test/app_test_helper'
 
-class TestRegistering < MiniTest::Test
-
-  include Capybara::DSL
-
-  def setup
-    User.destroy_all
-  end
-
-  def teardown
-    Capybara.reset_sessions!
-    Capybara.use_default_driver
-  end
+class TestRegistering < AppTest
 
   def register(user_attributes)
     visit '/'

@@ -10,3 +10,14 @@
     <button>Register</button>
   </form>
 </div>
+
+<div id="login_form">
+  <form method="POST" action="/sessions">
+    <%= erb :_error, locals: { model: user, field: :credentials } %>
+    <label>Email: <input type="email" name="user[email]" value="<%=user.email%>"></label>
+    <%= erb :_error, locals: { model: user, field: :email } %>
+    <label>Password: <input type="password" name="user[password]"></label>
+    <%= erb :_error, locals: { model: user, field: :password } %>
+    <button>Log in</button>
+  </form>
+</div>
