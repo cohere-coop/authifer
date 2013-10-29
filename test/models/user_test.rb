@@ -1,13 +1,7 @@
-require 'active_record'
-ActiveRecord::Base.logger = Logger.new('/dev/null')
-ActiveRecord::Base.establish_connection(adapter:  'sqlite3', database: ':memory:')
-ActiveRecord::Migrator.up('db/migrate')
+require './test/database_test_helper'
 require './models/user'
 
-class TestUser < Minitest::Test
-  def setup
-    User.destroy_all
-  end
+class TestUser < DatabaseTest
 
   def test_user_email_must_be_unique
     user_attributes = {
@@ -15,6 +9,8 @@ class TestUser < Minitest::Test
       password: "password"
     }
     user1 = User.create(user_attributes)
+    assert user1.valid?
+
     user2 = User.new(user_attributes)
 
     refute user2.valid?

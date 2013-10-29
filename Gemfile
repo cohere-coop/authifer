@@ -4,7 +4,8 @@ gem 'sinatra'
 gem 'songkick-oauth2-provider', git: "git@github.com:songkick/oauth2-provider.git"
 gem 'sinatra-activerecord'
 gem 'pg'
-
+gem 'rake'
+gem 'protected_attributes'
 
 group :development, :test do
   gem 'capybara'

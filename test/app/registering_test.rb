@@ -1,9 +1,4 @@
-require './test/test_helper'
-
-require 'capybara'
-require './auth_makeheadspace_app'
-
-Capybara.app = Sinatra::Application
+require './test/app_test_helper'
 
 class TestRegistering < MiniTest::Test
 
