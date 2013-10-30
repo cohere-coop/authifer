@@ -6,6 +6,7 @@
     <%= erb :_error, locals: { model: current_user, field: :password } %>
     <label>Confirm Password: <input type="password" name="user[password_confirmation]"></label>
     <%= erb :_error, locals: { model: current_user, field: :password_confirmation } %>
+    <%= erb :_redirect_url_fields %>
 
     <button>Register</button>
   </form>
@@ -18,6 +19,8 @@
     <%= erb :_error, locals: { model: current_user, field: :email } %>
     <label>Password: <input type="password" name="user[password]"></label>
     <%= erb :_error, locals: { model: current_user, field: :password } %>
+    <%= erb :_redirect_url_fields %>
+
     <button>Log in</button>
   </form>
 </div>
