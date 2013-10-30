@@ -9,6 +9,7 @@ gem 'protected_attributes'
 gem 'bcrypt-ruby'
 
 group :development, :test do
+  gem 'oauth2'
   gem 'capybara'
   gem 'minitest'
   gem 'minitest-test'

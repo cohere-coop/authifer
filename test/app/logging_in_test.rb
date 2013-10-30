@@ -2,15 +2,6 @@ require './test/app_test_helper'
 
 class TestLoggingIn < AppTest
 
-  def login(user_attributes)
-    visit "/"
-    within "#login_form" do
-      fill_in "user[email]", with: user_attributes.fetch(:email, "")
-      fill_in "user[password]", with: user_attributes.fetch(:password, "")
-      click_on "Log in"
-    end
-  end
-
   def test_logging_in
     user_attributes = { email: "foo@example.com", password: "password"}
     user = User.create(user_attributes)

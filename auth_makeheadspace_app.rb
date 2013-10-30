@@ -62,3 +62,37 @@ get '/sessions/delete' do
   logout
   redirect '/'
 end
+
+[:get, :post].each do |method|
+  def handle_oauth
+
+    owner = current_user.persisted? ? current_user : :implicit
+    oauth2 = Songkick::OAuth2::Provider.parse(owner, env)
+
+    if oauth2.redirect?
+      redirect oauth2.redirect_uri, oauth2.response_status
+    end
+
+    headers oauth2.response_headers
+    status  oauth2.response_status
+
+    if body = oauth2.response_body
+      body
+    elsif oauth2.valid?
+      erb :authorize, locals: { authorization_request: oauth2 }
+    else
+      raise "Error Will Robinson"
+    end
+  end
+  __send__(method, '/oauth/token') {
+    handle_oauth
+  }
+  __send__(method, '/oauth/authorize') { handle_oauth }
+end
+
+
+post '/oauth/allow' do
+  @auth = Songkick::OAuth2::Provider::Authorization.new(current_user, params)
+  @auth.grant_access!
+  redirect @auth.redirect_uri, @auth.response_status
+end

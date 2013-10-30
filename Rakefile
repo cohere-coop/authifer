@@ -8,4 +8,8 @@ namespace :db do
       Songkick::OAuth2::Model::Schema.migrate
     end
   end
+  task :seed do
+    require './db/seeds'
+    Seeder.seed
+  end
 end
