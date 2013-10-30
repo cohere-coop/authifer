@@ -4,6 +4,10 @@ module SessionsHelper
     User.find_by(attributes)
   end
 
+  def current_user
+    @current_user ||= logged_in? ? find_user(id: session[:user_id]) : User.new
+  end
+
   def login(user)
     session[:user_id] = user.id
   end

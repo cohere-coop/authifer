@@ -25,10 +25,6 @@ helpers do
     User.create(user_attributes)
   end
 
-  def current_user
-    @current_user ||= logged_in? ? User.find(session[:user_id]) : User.new
-  end
-
   def login_guest(user)
     @current_user = user
   end

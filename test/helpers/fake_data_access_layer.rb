@@ -2,16 +2,19 @@ require 'ostruct'
 
 module FakeDataAccessLayer
   def create_user(attributes)
-    cached_users[attributes[:email]] = build_user(attributes)
+    attribute_key = attributes.has_key?(:id) ? :id : :email
+    cached_users[attribute_key] = build_user(attributes)
   end
 
   def find_user(attributes)
-    cached_users[attributes[:email]]
+    attribute_key = attributes.has_key?(:id) ? :id : :email
+    cached_users[attribute_key]
   end
 
   def cached_users
     @cached_users ||= {}
   end
+
   def build_user(attributes={})
     User.new(attributes)
   end

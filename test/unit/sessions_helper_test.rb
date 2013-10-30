@@ -38,6 +38,19 @@ class TestSessionsHelper < MiniTest::Test
     refute user.errors.empty?
   end
 
+
+  def test_current_user_after_login
+    user = create_user(id: 1)
+
+    login(user)
+
+    assert current_user == user
+  end
+
+  def test_current_user_before_login
+    assert current_user.id.nil?
+  end
+
   def test_login
     user = build_user(id: 1)
 
