@@ -1,0 +1,5 @@
+<% if model.errors.has_key? field %>
+  <% model.errors.messages[field].each do |m|%>
+    <p class="error"><%= field.to_s.capitalize %> <%= m %></p>
+  <% end %>
+<% end %>

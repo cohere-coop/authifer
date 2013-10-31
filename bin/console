@@ -1,0 +1,3 @@
+#!/bin/bash
+
+bundle exec irb -r ./auth_makeheadspace_app

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+PORT=5000 bundle exec ruby auth_makeheadspace_app.rb

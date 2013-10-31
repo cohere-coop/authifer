@@ -1,0 +1,9 @@
+<h2>You're about to grant access to <%= authorization_request.client.name %></h2>
+<form method="POST" action="/oauth/allow">
+  <% authorization_request.params.each do |key, value| %>
+    <input type="hidden" name="<%= key %>" value="<%= value %>">
+  <% end %>
+  <button>It's cool. I dig it</button>
+</form>
+<a href="http://calmingmanatee.com/">No thanks. I'd rather see a picture of a
+  manatee</a>
