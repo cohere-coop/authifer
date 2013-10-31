@@ -1,9 +1,9 @@
 require './test/test_helper'
 require './test/helpers/fake_data_access_layer'
-require './helpers/sessions_helper'
+require './helpers/authentication_helper'
 
 class TestSessionsHelper < MiniTest::Test
-  include SessionsHelper
+  include AuthenticationHelper
   include FakeDataAccessLayer
 
   def session

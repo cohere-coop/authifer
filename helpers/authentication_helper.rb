@@ -1,7 +1,23 @@
-module SessionsHelper
+module AuthenticationHelper
+  def ensure_logged_in!
+    unless logged_in?
+      @redirect_url = request.fullpath
+      halt display.home
+    end
+  end
 
-  def find_user(attributes)
-    User.find_by(attributes)
+  def complete_login(user, registered)
+    if registered
+      login(user)
+      redirect(redirect_url)
+    else
+      login_guest(user)
+      display.home
+    end
+  end
+
+  def login_guest(user)
+    @current_user = user
   end
 
   def current_user
@@ -18,10 +34,6 @@ module SessionsHelper
 
   def logout
     session[:user_id] = nil
-  end
-
-  def build_user(attributes={})
-    User.new(attributes)
   end
 
   def authenticate_user(user_attributes)
