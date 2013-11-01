@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    authifer (0.0.1)
+    authifer (0.0.3)
       bcrypt-ruby
       protected_attributes
       sinatra (~> 1.0)

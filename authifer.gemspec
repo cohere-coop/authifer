@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = 'authifer'
-  s.version      = '0.0.1'
+  s.version      = '0.0.3'
   s.date         = '2013-11-01'
   s.description  = 'Run your own Authentication provider!'
   s.summary      = s.description
