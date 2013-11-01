@@ -1,10 +1,9 @@
 require './test/test_helper'
 require './test/database_test_helper'
-require './lib/authifer/user'
 require 'capybara'
-require './lib/authifer'
 
 Capybara.app = Authifer::App
+
 Authifer::App.get "/" do
   if logged_in?
     "Logged in as: #{current_user.email}"
@@ -13,7 +12,7 @@ Authifer::App.get "/" do
   end
 end
 
-class AppTest < MiniTest::Test
+class AppTest < DatabaseTest
   User = Authifer::User
   include Capybara::DSL
 
@@ -34,10 +33,6 @@ class AppTest < MiniTest::Test
       fill_in "user[password_confirmation]", with: user_attributes.fetch(:password_confirmation, "")
       click_on "Register"
     end
-  end
-
-  def setup
-    Authifer::User.destroy_all
   end
 
   def teardown

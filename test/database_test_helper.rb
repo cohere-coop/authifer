@@ -1,9 +1,11 @@
 require './test/test_helper'
-require 'active_record'
-require './initializers/dotenv'
+
+require 'dotenv'
+Dotenv.load('.env.test', '.env')
+
 require './lib/authifer'
 
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
+Authifer.connect_to_database(ENV['DATABASE_URL'])
 Authifer::Schema.migrate
 
 
