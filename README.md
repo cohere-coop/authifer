@@ -36,12 +36,14 @@ end
 ```
 
 ### If you need custom views:
-Make sure you set the Authifer.views\_path before you load the database.
+Set the Authifer.views\_path before you load the database.
 
 ```ruby
 Authifer.views_path = File.join(File.path(File.expand_path(__FILE__)),'views', 'authifer')
 Authifer.connect_to_database('sqlite3://db/auth_provder.sqlite3')
 ```
+
+Check out these [sample views](./lib/authifer/views).
 
 ## Contributing
 
