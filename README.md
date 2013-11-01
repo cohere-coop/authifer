@@ -55,7 +55,6 @@ Create an issue or pull request with:
 
 1. A good name
 2. Tests where applicable
-3. 
 
 ### For bug fixes
 
