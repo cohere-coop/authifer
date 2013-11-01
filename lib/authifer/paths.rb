@@ -16,8 +16,8 @@ module Authifer
       "#{sessions_path}/new"
     end
 
-    def destroy_session_path
-      "#{sessions_path}/destroy"
+    def delete_session_path
+      "#{sessions_path}/delete"
     end
   end
 end

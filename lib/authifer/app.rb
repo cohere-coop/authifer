@@ -59,9 +59,8 @@ module Authifer
       display.login(build_user)
     end
 
-    [{ method: :get, path: destroy_session_path},
+    [{ method: :get, path: delete_session_path},
      { method: :delete, path: sessions_path    }].each do |route|
-
       __send__(route[:method], route[:path]) do
         logout
         display.login(build_user)

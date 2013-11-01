@@ -1,4 +1,4 @@
-require './test/app_test_helper'
+require './test/helpers/app'
 
 class TestRegistering < AppTest
 

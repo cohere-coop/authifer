@@ -1,5 +1,7 @@
-require './test/test_helper'
-require './test/database_test_helper'
+require './test/helpers/default'
+require './test/helpers/dotenv'
+require './test/helpers/database'
+
 require 'capybara'
 
 Capybara.app = Authifer::App

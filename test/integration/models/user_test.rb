@@ -1,5 +1,4 @@
-require './test/database_test_helper'
-require './lib/authifer/user'
+require './test/helpers/database'
 
 class TestUser < DatabaseTest
 

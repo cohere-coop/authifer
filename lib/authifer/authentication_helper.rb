@@ -3,12 +3,12 @@ module Authifer
     def ensure_logged_in!
       unless logged_in?
         @redirect_url = request.fullpath
-        halt display.login
+        halt display.login(build_user)
       end
     end
 
     def current_user
-      @current_user ||= logged_in? ? find_user(id: session[:user_id]) : nil
+      @current_user ||= logged_in? ? find_user(id: session[:user_id]) : build_user
     end
 
     def login(user)

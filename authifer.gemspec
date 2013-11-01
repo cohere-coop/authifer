@@ -7,10 +7,10 @@ Gem::Specification.new do |s|
   s.authors      = ['Zee Spencer']
   s.email        = 'zee@zeespencer.com'
 
-  s.files        = Dir['lib/**/*.rb'] + ['README.md', 'LICENSE']
   s.require_path = "lib"
+  s.files        = Dir['{views,lib}/**/*.{erb,rb}'] + ['README.md', 'LICENSE']
 
-  s.homepage     = 'http://rubygems.org/gems/authifer'
+  s.homepage     = 'https://github.com/makeheadspace/authifer'
   s.license      = 'MIT'
 
   s.add_dependency 'sinatra', '~> 1.0'

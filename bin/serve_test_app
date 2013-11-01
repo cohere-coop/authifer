@@ -1,3 +1,0 @@
-#!/bin/bash
-
-PORT=5001 bundle exec ruby test/helpers/test_client.rb
