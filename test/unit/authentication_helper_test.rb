@@ -1,9 +1,9 @@
 require './test/test_helper'
 require './test/helpers/fake_data_access_layer'
-require './helpers/authentication_helper'
+require './lib/authifer/authentication_helper'
 
 class TestSessionsHelper < MiniTest::Test
-  include AuthenticationHelper
+  include Authifer::AuthenticationHelper
   include FakeDataAccessLayer
 
   def session
@@ -48,7 +48,7 @@ class TestSessionsHelper < MiniTest::Test
   end
 
   def test_current_user_before_login
-    assert current_user.id.nil?
+    assert current_user.nil?
   end
 
   def test_login

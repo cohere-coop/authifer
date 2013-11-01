@@ -1,0 +1,13 @@
+<div id="login_form">
+  <form method="POST" action="<%= sessions_path %>">
+    <%= erb :_error, locals: { model: user, field: :credentials } %>
+    <label>Email: <input type="email" name="user[email]" value="<%=user.email%>"></label>
+    <%= erb :_error, locals: { model: user, field: :email } %>
+
+    <label>Password: <input type="password" name="user[password]"></label>
+    <%= erb :_error, locals: { model: user, field: :password } %>
+
+    <%= erb :_redirect_url_fields %>
+    <button>Log in</button>
+  </form>
+</div>

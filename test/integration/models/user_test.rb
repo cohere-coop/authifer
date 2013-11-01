@@ -1,8 +1,9 @@
 require './test/database_test_helper'
-require './models/user'
+require './lib/authifer/user'
 
 class TestUser < DatabaseTest
 
+  User = Authifer::User
   def test_user_password_is_encrypted
     user_attributes = {
       email: "test@example.com",

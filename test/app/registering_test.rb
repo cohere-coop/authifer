@@ -2,16 +2,6 @@ require './test/app_test_helper'
 
 class TestRegistering < AppTest
 
-  def register(user_attributes)
-    visit '/'
-    within "#registration_form" do
-      fill_in "user[email]", with: user_attributes.fetch(:email, "")
-      fill_in "user[password]", with: user_attributes.fetch(:password, "")
-      fill_in "user[password_confirmation]", with: user_attributes.fetch(:password_confirmation, "")
-      click_on "Register"
-    end
-  end
-
   def test_registering
 
     register(email: "test@example.com",

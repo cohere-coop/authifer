@@ -1,0 +1,15 @@
+<div id="registration_form">
+  <form method="POST" action="<%= users_path %>">
+    <label>Email: <input type="email" name="user[email]" value="<%=user.email%>"></label>
+    <%= erb :_error, locals: { model: user, field: :email } %>
+
+    <label>Password: <input type="password" name="user[password]"></label>
+    <%= erb :_error, locals: { model: user, field: :password } %>
+
+    <label>Confirm Password: <input type="password" name="user[password_confirmation]"></label>
+    <%= erb :_error, locals: { model: user, field: :password_confirmation } %>
+
+    <%= erb :_redirect_url_fields %>
+    <button>Register</button>
+  </form>
+</div>
