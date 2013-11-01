@@ -11,7 +11,37 @@ user identities.
 
 ## Usage
 
-Gimme a second. I'll figure it out.
+
+```ruby
+require 'sinatra'
+
+Authifer.connect_to_database('sqlite3://db/auth_provder.sqlite3')
+
+use Authifer::App
+
+helpers do
+  include Authifer::AuthenticationHelper
+  include Authifer::Paths
+end
+
+get '/' do
+  if logged_in?
+    "<a href='#{ delete_session_path }'>log out</a>"
+  else
+    "<a href='#{ new_session_path }'>log in</a>" +
+    " or " +
+    "<a href='#{ new_user_path }'>register</a>"
+  end
+end
+```
+
+### If you need custom views:
+Make sure you set the Authifer.views\_path before you load the database.
+
+```ruby
+Authifer.views_path = File.join(File.path(File.expand_path(__FILE__)),'views', 'authifer')
+Authifer.connect_to_database('sqlite3://db/auth_provder.sqlite3')
+```
 
 ## Contributing
 
