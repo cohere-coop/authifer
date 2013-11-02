@@ -11,6 +11,12 @@ user identities.
 
 ## Usage
 
+A fully working implementation of authifer is Make Headspaces [Auth
+website](http://authn.makeheadspace.com) -
+[source](https://github.com/makeheadspace/authn.makeheadspace.com)
+
+Feel free to reference the code for inspiration.
+
 
 ```ruby
 require 'sinatra'
