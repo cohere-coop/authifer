@@ -26,7 +26,10 @@ class TestClient < Sinatra::Base
     client.save
   end
 
-  Authifer.connect_to_database(ENV['DATABASE_URL'])
+  Authifer.configure do |config|
+    config.database_url = ENV['DATABASE_URL']
+  end
+
   use Authifer::App
 
   def client
