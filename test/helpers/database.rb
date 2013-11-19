@@ -3,7 +3,9 @@ require './test/helpers/dotenv'
 
 require './lib/authifer'
 
-Authifer.connect_to_database(ENV['DATABASE_URL'])
+Authifer.configure do |config|
+  config.database_url = ENV['DATABASE_URL']
+end
 Authifer::Schema.migrate
 
 class DatabaseTest < Minitest::Test

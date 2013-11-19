@@ -21,7 +21,9 @@ Feel free to reference the code for inspiration.
 ```ruby
 require 'sinatra'
 
-Authifer.connect_to_database('sqlite3://db/auth_provder.sqlite3')
+Authifer.configure do |config|
+  config.database_url = sqlite3://db/auth_provder.sqlite3'
+end
 
 use Authifer::App
 
@@ -41,12 +43,15 @@ get '/' do
 end
 ```
 
-### If you need custom views:
-Set the Authifer.views\_path before you load the database.
+### Custom Views
+Set the Authifer.views\_path  in your configure block.
 
 ```ruby
-Authifer.views_path = File.join(File.path(File.expand_path(__FILE__)),'views', 'authifer')
-Authifer.connect_to_database('sqlite3://db/auth_provder.sqlite3')
+Authifer.configure do |config|
+  config.views_path = File.join(File.path(File.expand_path(__FILE__)),'views', 'authifer')
+  config.database_url = 'sqlite3://db/auth_provder.sqlite3'
+end
+
 ```
 
 Check out these [sample views](./lib/authifer/views).
