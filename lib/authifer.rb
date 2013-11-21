@@ -14,6 +14,14 @@ module Authifer
     @views_path = views_path
   end
 
+  def self.enforce_ssl
+    @enforce_ssl || true
+  end
+
+  def self.enforce_ssl=enforce
+    @enforce_ssl = enforce
+  end
+
   def self.views_path
      @views_path ||= File.join(base_path, 'views')
   end
@@ -24,7 +32,9 @@ module Authifer
 
   def self.configure
     yield(self)
+
     require_relative 'authifer/app'
+    Songkick::OAuth2::Provider.enforce_ssl = enforce_ssl
     Authifer::App.set :database, database_url
     require_relative 'authifer/user'
   end
