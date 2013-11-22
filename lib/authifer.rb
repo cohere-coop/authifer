@@ -15,7 +15,7 @@ module Authifer
   end
 
   def self.enforce_ssl
-    @enforce_ssl || true
+    @enforce_ssl.nil? ? true : @enforce_ssl
   end
 
   def self.enforce_ssl=enforce
