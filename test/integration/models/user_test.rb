@@ -1,8 +1,8 @@
 require './test/helpers/database'
 
 class TestUser < DatabaseTest
+  User = Test::User
 
-  User = Authifer::User
   def test_user_password_is_encrypted
     user_attributes = {
       email: "test@example.com",
@@ -34,7 +34,6 @@ class TestUser < DatabaseTest
 
     user = User.new(user_attributes)
 
-    user.valid?
     refute user.valid?
     refute user.errors[:password].empty?
   end

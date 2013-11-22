@@ -15,7 +15,6 @@ Authifer::App.get "/" do
 end
 
 class AppTest < DatabaseTest
-  User = Authifer::User
   include Capybara::DSL
 
   def login(user_attributes)

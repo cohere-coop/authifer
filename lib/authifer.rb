@@ -1,4 +1,6 @@
 require_relative 'authifer/schema'
+require_relative 'authifer/user'
+require 'songkick/oauth2/provider'
 
 module Authifer
   def self.database_url= database_url
@@ -30,12 +32,19 @@ module Authifer
     @base_path ||= File.join(File.dirname(File.expand_path(__FILE__)), 'authifer')
   end
 
+  def self.user_model
+    raise "You must provide an object which behaves like a User when configuring Authifer" unless @user_model
+    @user_model
+  end
+
+  def self.user_model=model
+    @user_model = model
+  end
+
   def self.configure
     yield(self)
 
-    require_relative 'authifer/app'
     Songkick::OAuth2::Provider.enforce_ssl = enforce_ssl
-    Authifer::App.set :database, database_url
-    require_relative 'authifer/user'
+    require_relative 'authifer/app'
   end
 end

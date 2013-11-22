@@ -38,6 +38,37 @@ class TestSessionsHelper < MiniTest::Test
     refute user.errors.empty?
   end
 
+  def test_authenticate_user_with_valid_auth_token
+    user_attributes = {
+      email: "test@example.com",
+      password: "password"
+    }
+
+    user = create_user(user_attributes)
+
+    user.auth_tokens.push("foo")
+
+    user_attributes[:password] = "foo"
+
+    user = authenticate_user(user_attributes)
+    assert user.errors.empty?
+  end
+
+  def test_authenticate_user_with_invalid_auth_token
+    user_attributes = {
+      email: "test@example.com",
+      password: "password"
+    }
+
+    user = create_user(user_attributes)
+    user.auth_tokens.push("foo")
+    user_attributes[:password] = "bar"
+
+    user = authenticate_user(user_attributes)
+
+    refute user.errors.empty?
+    refute user.errors[:credentials].empty?
+  end
 
   def test_current_user_after_login
     user = create_user(id: 1)

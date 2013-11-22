@@ -1,8 +1,9 @@
 require 'sinatra/base'
 require 'oauth2'
-require './test/helpers/dotenv'
 require 'authifer'
 
+require './test/helpers/dotenv'
+require './test/helpers/user'
 
 class TestClient < Sinatra::Base
   PORT = 5001
@@ -11,9 +12,10 @@ class TestClient < Sinatra::Base
   SITE_ROOT = "http://localhost:#{PORT}"
   REDIRECT_PATH = "/oauth2/callback"
   REDIRECT_URL = SITE_ROOT + REDIRECT_PATH
+  User = Test::User
 
   def self.prime_database
-    user = Authifer::User.find_or_create_by(email: "zee@example.com") { |u| u.password = "password" }
+    user = User.find_or_create_by(email: "zee@example.com") { |u| u.password = "password" }
     user.save
 
     client = user.oauth2_clients.find_or_create_by({
@@ -28,6 +30,8 @@ class TestClient < Sinatra::Base
 
   Authifer.configure do |config|
     config.database_url = ENV['DATABASE_URL']
+    config.user_model = User
+    config.enforce_ssl = false
   end
 
   use Authifer::App
@@ -35,6 +39,7 @@ class TestClient < Sinatra::Base
   def client
     @client ||= OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, :site => "#{SITE_ROOT}")
   end
+
   get '/' do
     auth_url = client.auth_code.authorize_url(:redirect_uri => "#{REDIRECT_URL}")
 

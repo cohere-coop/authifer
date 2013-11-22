@@ -5,5 +5,9 @@ module Authifer
       Songkick::OAuth2::Model::Schema.migrate
       ActiveRecord::Migrator.up(File.join(Authifer.base_path,'schema'))
     end
+
+    def self.rollback
+      ActiveRecord::Migrator.down(File.join(Authifer.base_path,'schema'))
+    end
   end
 end

@@ -1,3 +1,5 @@
+require 'authifer/authenticable'
+
 module Authifer
   module AuthenticationHelper
     def ensure_logged_in!
@@ -28,11 +30,18 @@ module Authifer
 
       user = build_user if !user
 
-      if user.password != user_attributes[:password] || user.password.nil?
+      user = Authenticable.new(user)
+      if !user_matches_attributes?(user, user_attributes)
         user.errors.add(:credentials, "are invalid. We don't have any users with that email/password combination")
       end
 
       user
+    end
+
+    private
+    def user_matches_attributes?(user, attributes)
+        (!attributes[:password].nil? && !attributes[:password].empty? && user.password == attributes[:password]) ||
+        (user.has_auth_token? attributes[:password])
     end
   end
 end

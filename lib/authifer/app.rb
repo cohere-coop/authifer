@@ -1,6 +1,5 @@
 require 'sinatra/base'
 require 'sinatra/activerecord'
-require 'songkick/oauth2/provider'
 require_relative 'authentication_helper'
 require_relative 'renderer'
 require_relative 'oauth_helper'
@@ -12,6 +11,8 @@ module Authifer
     register Sinatra::ActiveRecordExtension
 
     set :views, Authifer.views_path
+    set :database, Authifer.database_url
+
     enable :sessions
     extend Authifer::Paths
 

@@ -46,21 +46,28 @@ end
 ### Configuration
 
 The `configure` block allows you to set several options:
-1. `views_path` - optional - The absolute path to your authifer templates. Defaults to the
-   views inside the authifer gem
-2. `database_url` - required - The full url to your database. Make sure you've
+1. `database_url` - required - The full url to your database. Make sure you've
    included the proper gem for your database! We use the ActiveRecord ORM under the
    covers.
+2. `user_model` - required - A model which conforms to the Authifer::User
+   interface
+2. `views_path` - optional - The absolute path to your authifer templates. Defaults to the
+   views inside the authifer gem
 3. `enforce_ssl` - optional - Whether you want to raise errors on requests that
    don't come in over HTTPS. Defaults to true.
 
 An example development configuration:
 
 ```ruby
+class AppUser < ActiveRecord::Base
+  include Authifer::User
+end
+
 Authifer.configure do |config|
+  config.database_url = 'sqlite3://db/auth_provider.sqlite3'
+  config.user_model = AppUser
   config.enforce_ssl = false
   config.views_path = File.join(File.path(File.expand_path(__FILE__)),'views', 'authifer')
-  config.database_url = 'sqlite3://db/auth_provider.sqlite3'
 end
 ```
 

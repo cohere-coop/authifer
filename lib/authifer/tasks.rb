@@ -5,5 +5,11 @@ namespace :authifer do
       require_relative 'schema'
       Authifer::Schema.migrate
     end
+
+    desc "Rollback the database"
+    task :rollback do
+      require_relative 'schema'
+      Authifer::Schema.rollback
+    end
   end
 end
