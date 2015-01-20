@@ -22,7 +22,7 @@ Feel free to reference the code for inspiration.
 require 'sinatra'
 
 Authifer.configure do |config|
-  config.database_url = sqlite3://db/auth_provider.sqlite3'
+  config.database_url = 'sqlite3://db/auth_provider.sqlite3'
 end
 
 use Authifer::App
